@@ -6,17 +6,6 @@ import ConvexClientProvider from "@/components/providers/ConvexClientProvider";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
 export const metadata: Metadata = {
   title: "Code Craft",
   description: "Share and run code snippets",
@@ -24,23 +13,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100 flex flex-col`}
-        >
+    <html lang="en">
+      <body className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100 flex flex-col">
+        {/* ✅ ClerkProvider MUST be inside html/body */}
+        <ClerkProvider>
           <ConvexClientProvider>{children}</ConvexClientProvider>
-
           <Footer />
-
           <Toaster />
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }
 
